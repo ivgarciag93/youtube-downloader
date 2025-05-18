@@ -14,12 +14,8 @@ import java.util.Map;
 
 public class YoutubeDownloader {
 
-    // ENLACE DEL ALBUM DE YOUTUBE
-    private static final String YOUTUBE_URL = "https://www.youtube.com/watch?v=t1TDvy7djJg&list=OLAK5uy_nn3A5Fk-4Dh6v9OA6wBt4t_sLLorrjdsI";
-
     private static final String CHROME_DRIVER_KEY = "webdriver.chrome.driver";
     private static final String CHROME_DRIVER_LOCATION = "src/resources/chromedriver.exe";
-    private static final String BRAVE_LOCATION = "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe";
     private static final String CHROME_LOCATION = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
     private static final String CONVERTER_URL = "https://y2mate.nu/Gmgx";
 
@@ -38,13 +34,13 @@ public class YoutubeDownloader {
         final ChromeOptions options = new ChromeOptions().setBinary(CHROME_LOCATION);
         options.setExperimentalOption("prefs", prefs);
         options.addArguments(
-                "--start-maximized",
-                "--lang=en-us",
-                "--disable-gpu",
-                "--disable-extensions",
-                "--disable-popup-blocking",
-                "--window-size=1920,1200",
-                "--ignore-certificate-errors"
+            "--start-maximized",
+            "--lang=en-us",
+            "--disable-gpu",
+            "--disable-extensions",
+            "--disable-popup-blocking",
+            "--window-size=1920,1200",
+            "--ignore-certificate-errors"
         );
         options.addArguments("download.default_directory=" + DOWNLOAD_LOCATION);
         options.addArguments("download.prompt_for_download=false");
@@ -65,8 +61,8 @@ public class YoutubeDownloader {
             ConverterFindPage findPage = PageFactory.initElements(driver, ConverterFindPage.class);
             for (String songUrl : songUrls) {
                 findPage
-                        .findLink(songUrl)
-                        .downloadSong();
+                    .findLink(songUrl)
+                    .downloadSong();
             }
 
             Logger.getLogger(YoutubeDownloader.class.getName()).log(Logger.Level.INFO, "Full album downloaded!");
@@ -82,9 +78,6 @@ public class YoutubeDownloader {
     private List<String> getSongLinks(YoutubePage youtubePage, String url) {
         List<String> songUrls = youtubePage.getUrl(url);
         Logger.getLogger(YoutubeDownloader.class.getName()).log(Logger.Level.INFO, "Total album songs: " + songUrls.size());
-        /*for (String songUrl : songUrls) {
-            System.out.println(songUrl);
-        }*/
         return songUrls;
     }
 

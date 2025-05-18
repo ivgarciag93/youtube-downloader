@@ -21,7 +21,8 @@ public class YoutubeDownloaderApp extends Application {
         downloadButton.setOnAction(event -> {
             String url = urlTextField.getText();
             if (!url.isEmpty()) {
-                startDownload(url);  // Iniciar la descarga con Selenium
+                startDownload(url);
+                urlTextField.clear();
             } else {
                 Logger.getLogger(YoutubeDownloaderApp.class.getName()).log(Logger.Level.INFO, "Por favor, introduce una URL válida.");
             }

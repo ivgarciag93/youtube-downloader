@@ -70,19 +70,19 @@ public class YoutubePage extends ConverterPage {
 
         try (Stream<Path> files = Files.list(Paths.get(sourceFolder))) {
             files.filter(file -> file.toString().toLowerCase().endsWith(".mp3"))
-                    .forEach(file -> {
-                        try {
-                            Path destinationPath = Paths.get(destinationFolder, file.getFileName().toString());
-                            // Remove "tomp3.cc - "
-                            if (file.toFile().getName().startsWith(PREFIX)) {
-                                String newName = file.toFile().getName().substring(PREFIX.length());
-                                destinationPath = Paths.get(destinationFolder, newName);
-                            }
-                            Files.move(file, destinationPath);
-                        } catch (IOException e) {
-                            Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.ERROR, "Error moving file...");
+                .forEach(file -> {
+                    try {
+                        Path destinationPath = Paths.get(destinationFolder, file.getFileName().toString());
+                        // Remove "tomp3.cc - "
+                        if (file.toFile().getName().startsWith(PREFIX)) {
+                            String newName = file.toFile().getName().substring(PREFIX.length());
+                            destinationPath = Paths.get(destinationFolder, newName);
                         }
-                    });
+                        Files.move(file, destinationPath);
+                    } catch (IOException e) {
+                        Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.ERROR, "Error moving file...");
+                    }
+                });
         } catch (IOException e) {
             Logger.getLogger(YoutubePage.class.getName()).log(Logger.Level.ERROR, "Error getting files...");
         }
